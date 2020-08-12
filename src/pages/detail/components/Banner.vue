@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="banner">
+        <div class="banner" @click="handleBannerClick">
             <img :src="bannerImg" alt="" class="banner-img">
             <div class="banner-info">
                 <div class="banner-title">
@@ -12,16 +12,43 @@
                 </div>
             </div>
         </div>
+        <common-fade>
+          <common-gallary
+            :imgs="bannerImgs"
+            v-show="showGallary"
+            @close="handleGallaryClose"
+          >
+          </common-gallary>
+        </common-fade>
     </div>
 </template>
 
 <script>
+import CommonGallary from '@/common/gallary/Gallary'
+import CommonFade from '@/common/fade/Fade'
 export default {
     name:'DetailBanner',
     props: {
         sightName: String,
         bannerImg: String,
         bannerImgs: Array
+    },
+    data () {
+      return {
+        showGallary: false
+      }
+    },
+    components : {
+      CommonGallary,
+      CommonFade
+    },
+    methods: {
+      handleBannerClick () {
+        this.showGallary = true
+      },
+      handleGallaryClose () {
+        this.showGallary = false
+      }
     }
 }
 </script>
